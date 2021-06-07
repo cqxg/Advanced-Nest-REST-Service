@@ -21,4 +21,4 @@ export class User extends Model<User, UserCreationAttrs> {
 
   @Column({ type: DataType.STRING, allowNull: true })
   banReason: string;
-}
+};

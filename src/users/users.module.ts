@@ -12,4 +12,5 @@ import { UsersController } from './users.controller';
     SequelizeModule.forFeature([User])
   ]
 })
-export class UsersModule { }
+
+export class UsersModule { };
