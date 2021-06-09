@@ -4,6 +4,7 @@ import { UsersModule } from './users/users.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 
 import { User } from './users/users.model';
+import { RolesModule } from './roles/roles.module';
 @Module({
     controllers: [],
     providers: [],
@@ -22,6 +23,7 @@ import { User } from './users/users.model';
             autoLoadModels: true
         }),
         UsersModule,
+        RolesModule,
     ]
 })
 
