@@ -3,10 +3,11 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { User } from './users.model';
 import { UsersService } from './users.service';
+import { AddRoleDto } from './dto/add-role.dto';
+import { RolesGuard } from 'src/auth/roles.guard';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
-// import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/roles.guard';
+
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
@@ -26,6 +27,15 @@ export class UsersController {
   @Get()
   getAll() {
     return this.usersService.getAllUsers();
+  };
+
+  @ApiOperation({ summary: 'Assign a role' })
+  @ApiResponse({ status: 200 })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
+  @Get('/role')
+  addRole(@Body() dto: AddRoleDto) {
+    return this.usersService.addRole(dto);
   };
 
 };
