@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+import { CanActivate, ExecutionContext, HttpException, HttpStatus, Injectable, UnauthorizedException } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import { JwtService } from "@nestjs/jwt";
 import { Observable } from "rxjs";
@@ -30,7 +30,7 @@ export class RolesGuard implements CanActivate {
 
       return user.roles.some(role => reqiredRoles.include(role.value));
     } catch (e) {
-      throw new UnauthorizedException({ message: 'User is not logged in' });
+      throw new HttpException('No access', HttpStatus.FORBIDDEN);
     }
   }
 }
