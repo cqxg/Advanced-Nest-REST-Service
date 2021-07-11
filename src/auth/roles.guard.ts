@@ -12,7 +12,7 @@ export class RolesGuard implements CanActivate {
     const req = context.switchToHttp().getRequest();
 
     try {
-      const reqiredRoles = this.reflector.getAllAndOverride(ROLES_KEY, [
+      const reqiredRoles = this.reflector.getAllAndOverride<string[]>(ROLES_KEY, [
         context.getHandler(),
         context.getClass
       ]);
@@ -28,7 +28,7 @@ export class RolesGuard implements CanActivate {
       const user = this.jwtService.verify(token);
       req.user = user;
 
-      return user.roles.some(role => reqiredRoles.include(role.value));
+      return user.roles.some(role => reqiredRoles.includes(role.value));
     } catch (e) {
       throw new HttpException('No access', HttpStatus.FORBIDDEN);
     }
